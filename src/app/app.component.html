@@ -1,3 +1,6 @@
+
+<div *ngIf="!isCartEmpty()" class="sticky-top d-flex align-content-center flex-wrap justify-content-center bg-info bg-gradient">  <button class="btn btn-success m-4">Go To Basket</button>
+</div>
 <div class="d-flex p-2 align-content-center flex-wrap justify-content-center">
   
   <div *ngFor="let product of products" class="card m-2" style="width: 18rem;">
@@ -5,7 +8,9 @@
     <div class="card-body">
       <h5 class="card-title">{{product.name}}</h5>
       <p class="card-text">{{product.description}}</p>
-      <a href="#" class="btn btn-primary">Add to Cart</a>
+      <button class="btn btn-primary" *ngIf="!isProductInCart(product.id)" (click)="addToCart(product.id)">Add to Cart</button>
+      <button class="btn btn-danger" *ngIf="isProductInCart(product.id)" (click)="removeFromCart(product.id)">Remove from Cart</button>
     </div>
   </div>
 </div>
+
