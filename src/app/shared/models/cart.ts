@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
-export interface CartResponse {
+export interface Cart {
     cartItems: Product[];
     shippingCost: number;
     currency: string;

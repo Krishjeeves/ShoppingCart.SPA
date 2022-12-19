@@ -1,1 +1,26 @@
-<p>cart works!</p>
+<div class="list-group" *ngIf="cart">
+    
+    <div class="list-group-item mb-3 card" *ngFor="let product of cart.cartItems">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{product.image}}" class="img-thumbnail rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text">{{product.description}}</p>
+              <p class="card-text">{{product.price | currency:'AUD':'symbol'}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div *ngIf="cart" class="d-flex align-content-center  justify-content-center bg-success bg-gradient">
+    <div>
+    <h3>Shipping Cost : {{ cart.shippingCost  | currency:'AUD':'symbol'}}</h3>  
+    <h3>Total Cost : {{ total() | currency:'AUD':'symbol'}}</h3>    
+</div>
+</div>
+<div *ngIf="!cart" class="sticky-top d-flex align-content-center flex-wrap justify-content-center bg-info bg-gradient">  <a class="btn btn-success m-4" routerLink="/products">No Items in Basket. Browse Products</a>
+</div>
