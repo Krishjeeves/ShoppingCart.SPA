@@ -14,7 +14,7 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.getNewCosts(undefined);
+    this.cartService.cartItemIds$.subscribe(() => this.getNewCosts(undefined));    
   }
 
   total(): number {
@@ -26,8 +26,8 @@ export class CartComponent implements OnInit {
   getNewCosts(event: any) {
     if(event)
       this.currency = event.target.value;
-
-    this.cartService.cartItems(this.currency).subscribe(c=>this.cart = c);
+    if(!this.cartService.isCartEmpty())
+      this.cartService.cartItems(this.currency).subscribe(c=>this.cart = c);
   }
 
   
