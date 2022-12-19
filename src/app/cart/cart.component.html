@@ -1,3 +1,13 @@
+<div *ngIf="cart"  class="sticky-top d-flex align-content-center bg-light mb-20" >
+   
+        <select class="form-select" aria-label="Select your Currency" (change)="getNewCosts($event)">
+            <option selected disabled>Select your local currency</option>
+            <option value="AUD">Australian Dollar</option>
+            <option value="USD">US Dollar</option>
+            <option value="JPY">Japanese Yen</option>
+            <option value="NZD">New Zealand Dollar</option>
+          </select>
+ </div>
 <div class="list-group" *ngIf="cart">
     
     <div class="list-group-item mb-3 card" *ngFor="let product of cart.cartItems">
@@ -9,18 +19,22 @@
             <div class="card-body">
               <h5 class="card-title">{{product.name}}</h5>
               <p class="card-text">{{product.description}}</p>
-              <p class="card-text">{{product.price | currency:'AUD':'symbol'}}</p>
+              <p class="card-text">{{product.price | currency: currency:'symbol'}}</p>
             </div>
           </div>
         </div>
       </div>
+      <div class="list-group-item mb-3 card">
+        <div>
+        <h3>Shipping Cost : {{ cart.shippingCost  | currency: currency:'symbol'}}</h3>  
+        <h3>Total Cost : {{ total() | currency: currency :'symbol'}}</h3>    
+    </div>    
+    </div>
+
+      <div class="list-group-item mb-3 card">
+        <button class="btn btn-primary">Check Out</button>
+    </div>
 </div>
 
-<div *ngIf="cart" class="d-flex align-content-center  justify-content-center bg-success bg-gradient">
-    <div>
-    <h3>Shipping Cost : {{ cart.shippingCost  | currency:'AUD':'symbol'}}</h3>  
-    <h3>Total Cost : {{ total() | currency:'AUD':'symbol'}}</h3>    
-</div>
-</div>
 <div *ngIf="!cart" class="sticky-top d-flex align-content-center flex-wrap justify-content-center bg-info bg-gradient">  <a class="btn btn-success m-4" routerLink="/products">No Items in Basket. Browse Products</a>
 </div>

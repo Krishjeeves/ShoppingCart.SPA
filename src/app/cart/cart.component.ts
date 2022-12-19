@@ -10,11 +10,11 @@ import { CartService } from '../shared/services/cart.service';
 export class CartComponent implements OnInit {
 
   cart: Cart | undefined;
-
+  currency: string ="AUD";
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.cartService.cartItems("AUD").subscribe(c=>this.cart = c);
+    this.getNewCosts(undefined);
   }
 
   total(): number {
@@ -22,5 +22,14 @@ export class CartComponent implements OnInit {
       return this.cart.cartItems.map(c=>c.price).reduce((x,y) =>x+y) + this.cart.shippingCost;
     return 0;
   }
+
+  getNewCosts(event: any) {
+    if(event)
+      this.currency = event.target.value;
+
+    this.cartService.cartItems(this.currency).subscribe(c=>this.cart = c);
+  }
+
+  
 
 }
